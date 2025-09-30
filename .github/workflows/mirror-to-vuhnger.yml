@@ -1,12 +1,16 @@
-name: Mirror to vuhnger/runtime-ifi on push
+name: Mirror to vuhnger/runtime-ifi
 
 permissions:
   contents: read
 
 on:
   push:
-    branches:
-      - '**'
+    branches: ['**']
+    tags: ['**']
+
+concurrency:
+  group: mirror-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   mirror:
@@ -16,20 +20,62 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          fetch-tags: true
 
       - name: Set up SSH for deploy key
         uses: webfactory/ssh-agent@v0.9.0
         with:
-          ssh-private-key: |
-            ${{ secrets.MIRROR_SSH_PRIVATE_KEY }}
+          ssh-private-key: ${{ secrets.MIRROR_SSH_PRIVATE_KEY }}
+
+      - name: Trust github.com host key
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
 
       - name: Set Git identity
         run: |
           git config user.name "mirror-bot"
           git config user.email "mirror-bot@users.noreply.github.com"
 
-      - name: Add mirror remote and push
+      - name: Add mirror remote
+        run: git remote add mirror git@github.com:vuhnger/runtime-ifi.git
+
+      # 1) Non-destructive update: push/overwrite all branches and tags (no deletions)
+      - name: Push all branches (force-update, no prune)
+        run: git push mirror +refs/heads/*:refs/heads/*
+
+      - name: Push all tags (force-update)
+        run: git push mirror --tags --force
+
+      # 2) Optional cleanup: delete branches removed in source, except dest default branch
+      #    Skip this whole step if you don't want any deletions at all.
+      - name: Delete branches missing in source (protect default)
+        env:
+          DEST_REPO: vuhnger/runtime-ifi
         run: |
-          git remote add mirror git@github.com:vuhnger/runtime-ifi.git
-          # Push EVERYTHING (branches, tags, deletions) to keep perfect sync:
-          git push --mirror mirror
+          set -euo pipefail
+
+          # Get destination default branch (public repo: no auth needed)
+          DEST_DEFAULT=$(curl -fsSL "https://api.github.com/repos/$DEST_REPO" | jq -r .default_branch)
+          echo "Destination default branch: $DEST_DEFAULT"
+
+          # List heads on destination
+          mapfile -t DEST_BRANCHES < <(git ls-remote --heads mirror | awk '{print $2}' | sed 's#refs/heads/##')
+          # List heads on source
+          mapfile -t SRC_BRANCHES < <(git for-each-ref --format='%(refname:strip=2)' refs/heads)
+
+          # Build a set for quick lookup
+          printf '%s\n' "${SRC_BRANCHES[@]}" | sort -u > /tmp/src.txt
+          printf '%s\n' "${DEST_BRANCHES[@]}" | sort -u > /tmp/dst.txt
+
+          # For each dest branch not in source, delete it unless it's the default
+          while read -r BR; do
+            if ! grep -qx "$BR" /tmp/src.txt; then
+              if [ "$BR" = "$DEST_DEFAULT" ]; then
+                echo "Skip deletion of default branch '$BR'"
+              else
+                echo "Deleting branch '$BR' on destination"
+                git push mirror :refs/heads/"$BR" || true
+              fi
+            fi
+          done < /tmp/dst.txt
