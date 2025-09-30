@@ -1,5 +1,5 @@
 import runtimeBlack from './assets/runtime_black.png'
-import runtimeSvar from './assets/runtime_svar.png'
+import runtimeSvar from './assets/runtime_white.png'
 import './App.css'
 
 function App() {
