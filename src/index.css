@@ -1,11 +1,21 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* Runtime Design System Colors */
+  --runtime-text-light: #E7E7E7;
+  --runtime-text-dark: #000000;
+  --runtime-shadow-pink: #FF8AF1;
+  --runtime-shadow-red: #FF004C;
+  --runtime-bg-dark: #1a1a1a;
+  --runtime-bg-light: #ffffff;
+
+  /* Typography */
+  font-family: Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
+  font-style: italic;
+  
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--runtime-text-light);
+  background-color: var(--runtime-bg-dark);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -33,6 +43,10 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  font-family: Arial, sans-serif;
+  font-style: italic;
+  text-transform: uppercase;
+  font-weight: normal;
 }
 
 button {
@@ -56,11 +70,11 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: var(--runtime-text-dark);
+    background-color: var(--runtime-bg-light);
   }
   a:hover {
-    color: #747bff;
+    color: var(--runtime-shadow-red);
   }
   button {
     background-color: #f9f9f9;
