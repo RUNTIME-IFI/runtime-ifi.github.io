@@ -4,6 +4,15 @@
   width: 100%;
 }
 
+/* Page container for non-home pages */
+.page-container {
+  min-height: calc(100vh - 200px);
+  padding-top: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 /* Header Styles */
 .runtime-header {
   display: flex;
@@ -14,9 +23,11 @@
   backdrop-filter: blur(10px);
   position: fixed;
   top: 0;
-  width: 100%;
+  left: 0;
+  right: 0;
   z-index: 1000;
   box-sizing: border-box;
+  height: 80px;
 }
 
 .runtime-logo-header {
@@ -52,7 +63,7 @@
 
 /* Hero Section */
 .runtime-hero {
-  min-height: 100vh;
+  min-height: calc(100vh - 80px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -65,6 +76,8 @@
 .hero-content {
   z-index: 2;
   position: relative;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .runtime-logo-hero {
@@ -239,6 +252,14 @@
     flex-direction: column;
     padding: 1rem;
     gap: 1rem;
+    height: auto;
+    min-height: 100px;
+  }
+  
+  .runtime-hero {
+    margin-top: 120px;
+    min-height: calc(100vh - 120px);
+    padding: 1rem;
   }
   
   .runtime-nav {
