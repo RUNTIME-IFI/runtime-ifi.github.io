@@ -1,24 +1,52 @@
+import React from 'react'
 import runtimeBlack from './assets/runtime_black.png'
-import runtimeSvar from './assets/runtime_white.png'
+import runtimeWhite from './assets/runtime_white.png'
 import './App.css'
 
-function App() {
+// Interface for navigation link component
+interface NavLinkProps {
+  href: string
+  children: React.ReactNode
+}
+
+// Interface for project card component
+interface ProjectCardProps {
+  title: string
+  description: string
+}
+
+// Navigation Link Component
+const NavLink: React.FC<NavLinkProps> = ({ href, children }) => (
+  <a href={href} className="nav-link">
+    {children}
+  </a>
+)
+
+// Project Card Component
+const ProjectCard: React.FC<ProjectCardProps> = ({ title, description }) => (
+  <div className="project-card">
+    <h3 className="project-title">{title}</h3>
+    <p className="project-description">{description}</p>
+  </div>
+)
+
+const App: React.FC = () => {
   return (
     <div className="runtime-app">
       {/* Header */}
       <header className="runtime-header">
         <img src={runtimeBlack} className="runtime-logo-header" alt="Runtime logo" />
         <nav className="runtime-nav">
-          <a href="#about" className="nav-link">ABOUT</a>
-          <a href="#projects" className="nav-link">PROJECTS</a>
-          <a href="#contact" className="nav-link">CONTACT</a>
+          <NavLink href="#about">ABOUT</NavLink>
+          <NavLink href="#projects">PROJECTS</NavLink>
+          <NavLink href="#contact">CONTACT</NavLink>
         </nav>
       </header>
 
       {/* Hero Section */}
       <section className="runtime-hero">
         <div className="hero-content">
-          <img src={runtimeSvar} className="runtime-logo-hero" alt="Runtime" />
+          <img src={runtimeWhite} className="runtime-logo-hero" alt="Runtime" />
           <h1 className="hero-title">RUNTIME</h1>
           <p className="hero-subtitle">
             FAST. DYNAMIC. INNOVATIVE.
@@ -46,18 +74,18 @@ function App() {
       <section id="projects" className="runtime-section projects">
         <h2 className="section-title">PROJECTS</h2>
         <div className="projects-grid">
-          <div className="project-card">
-            <h3 className="project-title">PROJECT ALPHA</h3>
-            <p className="project-description">INNOVATIVE SOLUTIONS FOR MODERN CHALLENGES</p>
-          </div>
-          <div className="project-card">
-            <h3 className="project-title">PROJECT BETA</h3>
-            <p className="project-description">PUSHING THE BOUNDARIES OF POSSIBILITY</p>
-          </div>
-          <div className="project-card">
-            <h3 className="project-title">PROJECT GAMMA</h3>
-            <p className="project-description">NEXT-GENERATION TECHNOLOGY STACK</p>
-          </div>
+          <ProjectCard
+            title="PROJECT ALPHA"
+            description="INNOVATIVE SOLUTIONS FOR MODERN CHALLENGES"
+          />
+          <ProjectCard
+            title="PROJECT BETA"
+            description="PUSHING THE BOUNDARIES OF POSSIBILITY"
+          />
+          <ProjectCard
+            title="PROJECT GAMMA"
+            description="NEXT-GENERATION TECHNOLOGY STACK"
+          />
         </div>
       </section>
 
