@@ -1,0 +1,32 @@
+name: Mirror to vuhnger/runtime-ifi on push
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up SSH for deploy key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: |
+            ${{ secrets.MIRROR_SSH_PRIVATE_KEY }}
+
+      - name: Set Git identity
+        run: |
+          git config user.name "mirror-bot"
+          git config user.email "mirror-bot@users.noreply.github.com"
+
+      - name: Add mirror remote and push
+        run: |
+          git remote add mirror git@github.com:vuhnger/runtime-ifi.git
+          # Push EVERYTHING (branches, tags, deletions) to keep perfect sync:
+          git push --mirror mirror
