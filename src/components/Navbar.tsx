@@ -1,19 +1,5 @@
 import React from 'react'
-import runtimeBlack from '../assets/runtime_black.png'
-
-// Interface for navigation link component
-interface NavLinkProps {
-  href: string
-  children: React.ReactNode
-  onClick?: (e: React.MouseEvent) => void
-}
-
-// Navigation Link Component
-const NavLink: React.FC<NavLinkProps> = ({ href, children, onClick }) => (
-  <a href={href} className="nav-link" onClick={onClick}>
-    {children}
-  </a>
-)
+import NavLink from './NavLink'
 
 interface NavbarProps {
   onNavigate: (page: string) => void
@@ -27,7 +13,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
 
   return (
     <header className="runtime-header">
-    <h2 className="section-title">Runtime</h2>
+    <h2 className="section-title" onClick={handleNavClick('home')}>Runtime</h2>
       <nav className="runtime-nav">
         <NavLink href="#home" onClick={handleNavClick('home')}>
           HJEM

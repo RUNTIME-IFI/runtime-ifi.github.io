@@ -5,7 +5,7 @@ import './App.css'
 import { Navbar, Footer } from './components'
 
 // Pages
-import { Home, About, Contact } from './pages'
+import { Home, About, Contact, Report } from './pages'
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<string>('home')
@@ -21,7 +21,9 @@ const App: React.FC = () => {
       case 'about':
         return <About />
       case 'contact':
-        return <Contact />
+        return <Contact onNavigate={handleNavigate} />
+      case 'report':
+        return <Report />
       default:
         return <Home />
     }
