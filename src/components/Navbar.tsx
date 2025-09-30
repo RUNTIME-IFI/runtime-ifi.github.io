@@ -1,5 +1,6 @@
 import React from 'react'
 import NavLink from './NavLink'
+import StyledHeading from './StyledHeading'
 
 interface NavbarProps {
   onNavigate: (page: string) => void
@@ -13,7 +14,7 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
 
   return (
     <header className="runtime-header">
-    <h2 className="section-title" onClick={handleNavClick('home')}>Runtime</h2>
+    <StyledHeading level={2} className="section-title" onClick={handleNavClick('home')}>Runtime</StyledHeading>
       <nav className="runtime-nav">
         <NavLink href="#home" onClick={handleNavClick('home')}>
           HJEM
