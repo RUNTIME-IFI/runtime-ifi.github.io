@@ -6,7 +6,9 @@ const About: React.FC = () => {
       <section className="runtime-section">
         <h2 className="section-title">OM RUNTIME</h2>
         <p className="section-text">
-          Runtime hører til institutt på informatikk ved Universitetet i Oslo. Vi organiserer treninger, melder oss på løp og staffetter.
+          IFI Runtime er løpeklubben på IFI for alle som liker å løpe. Vi møtes til felles økter, tester
+ulike ruter rundt Blindern og Oslo, og deltar sammen på løp. Fokus er på mestring,
+fellesskap og gøy trening.
         </p>
         <br />
         <p className="section-text">
