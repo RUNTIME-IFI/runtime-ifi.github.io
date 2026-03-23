@@ -4,6 +4,7 @@ interface StyledHeadingProps {
   level: 1 | 2 | 3 | 4 | 5 | 6
   children: React.ReactNode
   className?: string
+  id?: string
   onClick?: (e: React.MouseEvent) => void
 }
 
@@ -11,9 +12,11 @@ const StyledHeading: React.FC<StyledHeadingProps> = ({
   level, 
   children, 
   className = '', 
+  id,
   onClick 
 }) => {
   const commonProps = {
+    id,
     className: `styled-heading styled-heading-h${level} ${className}`,
     onClick
   }

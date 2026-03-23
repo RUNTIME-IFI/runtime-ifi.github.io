@@ -1,7 +1,28 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { RuntimeTitle, StyledHeading } from '../components'
+import { getOAuthStatus } from '../api/stravaApi'
+import { Leaderboard } from './Leaderboard'
 
 const Home: React.FC = () => {
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const shouldFocusLeaderboard = params.get('page') === 'leaderboard' || getOAuthStatus().status !== null
+
+    if (!shouldFocusLeaderboard) {
+      return
+    }
+
+    requestAnimationFrame(() => {
+      document.getElementById('leaderboard')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      if (params.get('page') === 'leaderboard') {
+        params.delete('page')
+        const url = new URL(window.location.href)
+        url.search = params.toString()
+        window.history.replaceState({}, '', url.toString())
+      }
+    })
+  }, [])
+
   return (
     <>
       {/* Hero Section */}
@@ -20,9 +41,7 @@ const Home: React.FC = () => {
       {/* Leaderboard Section */}
       <section id="leaderboard" className="runtime-section projects">
         <StyledHeading level={2} className="section-title">TAVLA</StyledHeading>
-        <p className="section-text">
-          Her kommer en live-oppdatert tavle over aktiviteten til medlemmene våre.
-        </p>
+        <Leaderboard />
       </section>
     </>
   )

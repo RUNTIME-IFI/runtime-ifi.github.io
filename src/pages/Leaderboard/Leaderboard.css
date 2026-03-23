@@ -1,0 +1,430 @@
+.leaderboard-page {
+  width: min(1180px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 2rem 0 4rem;
+}
+
+.leaderboard-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.leaderboard-filter-copy,
+.leaderboard-period-copy,
+.leaderboard-modal-text,
+.leaderboard-modal-points p,
+.leaderboard-athlete-location,
+.leaderboard-row-location,
+.leaderboard-banner p,
+.leaderboard-empty-state p {
+  font-family: Arial, sans-serif;
+  font-style: italic;
+  text-transform: uppercase;
+}
+
+.leaderboard-signup-button,
+.leaderboard-connect-button,
+.leaderboard-filter,
+.leaderboard-modal-close {
+  font-family: Arial, sans-serif;
+  font-style: italic;
+  text-transform: uppercase;
+  border-radius: 0;
+  border: 0;
+}
+
+.leaderboard-signup-button,
+.leaderboard-connect-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1rem 1.4rem;
+  background: #fc4c02;
+  color: #ffffff;
+  box-shadow: 3px 3px 0 var(--runtime-shadow-pink);
+  font-weight: 700;
+}
+
+.leaderboard-signup-button:hover,
+.leaderboard-connect-button:hover {
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0 var(--runtime-shadow-red);
+}
+
+.leaderboard-signup-button:focus-visible,
+.leaderboard-connect-button:focus-visible,
+.leaderboard-filter:focus-visible,
+.leaderboard-modal-close:focus-visible {
+  outline: 2px solid var(--runtime-shadow-pink);
+  outline-offset: 3px;
+}
+
+.strava-logo-icon {
+  width: 1.3rem;
+  height: 1.3rem;
+  flex-shrink: 0;
+}
+
+.leaderboard-toolbar {
+  display: block;
+  margin-bottom: 2rem;
+}
+
+.leaderboard-control-stack {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.leaderboard-filter-group {
+  display: inline-flex;
+  padding: 0.35rem;
+  border: 2px solid rgba(255, 138, 241, 0.35);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.leaderboard-period-group {
+  display: inline-flex;
+  padding: 0.35rem;
+  border: 2px solid rgba(255, 0, 76, 0.28);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.leaderboard-filter {
+  padding: 0.8rem 1.1rem;
+  background: transparent;
+  color: inherit;
+  font-weight: 700;
+}
+
+.leaderboard-filter.active {
+  background: var(--runtime-shadow-pink);
+  color: var(--runtime-text-dark);
+  box-shadow: 2px 2px 0 var(--runtime-shadow-red);
+}
+
+.leaderboard-filter-copy {
+  letter-spacing: 0.04em;
+  opacity: 0.78;
+}
+
+.leaderboard-filter-copy-shell {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.leaderboard-period-copy {
+  letter-spacing: 0.04em;
+  opacity: 0.64;
+}
+
+.leaderboard-banner,
+.leaderboard-empty-state,
+.leaderboard-table-card,
+.leaderboard-podium-card,
+.leaderboard-modal {
+  border: 2px solid rgba(255, 138, 241, 0.4);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.leaderboard-banner,
+.leaderboard-empty-state {
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.leaderboard-banner.success {
+  border-color: var(--runtime-shadow-pink);
+}
+
+.leaderboard-banner.error {
+  border-color: var(--runtime-shadow-red);
+}
+
+.leaderboard-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 5rem 0;
+}
+
+.loading-spinner {
+  width: 56px;
+  height: 56px;
+  border: 4px solid rgba(255, 138, 241, 0.16);
+  border-top-color: var(--runtime-shadow-pink);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.leaderboard-loading p,
+.leaderboard-podium-rank,
+.leaderboard-podium-metric span,
+.leaderboard-podium-stats span,
+.leaderboard-row span,
+.leaderboard-table-header span,
+.leaderboard-modal-title {
+  font-family: Arial, sans-serif;
+  font-style: italic;
+  text-transform: uppercase;
+}
+
+.leaderboard-top-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.leaderboard-podium-card {
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.leaderboard-podium-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 138, 241, 0.12), transparent 55%);
+  pointer-events: none;
+}
+
+.leaderboard-podium-card.place-1 {
+  border-color: var(--runtime-shadow-red);
+}
+
+.leaderboard-podium-rank {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: var(--runtime-shadow-pink);
+}
+
+.leaderboard-avatar-shell {
+  width: 4.5rem;
+  height: 4.5rem;
+  margin-bottom: 1rem;
+  border: 2px solid var(--runtime-shadow-pink);
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.leaderboard-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.leaderboard-avatar-fallback,
+.leaderboard-athlete-name,
+.leaderboard-podium-metric strong,
+.leaderboard-row-name {
+  font-family: Arial, sans-serif;
+  font-style: italic;
+  text-transform: uppercase;
+}
+
+.leaderboard-avatar-fallback {
+  font-size: 1.5rem;
+}
+
+.leaderboard-athlete-name {
+  margin: 0 0 0.4rem;
+  font-size: 1.3rem;
+}
+
+.leaderboard-athlete-location,
+.leaderboard-row-location {
+  opacity: 0.72;
+  font-size: 0.82rem;
+}
+
+.leaderboard-podium-metric {
+  margin-top: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.leaderboard-podium-metric strong {
+  font-size: 2rem;
+  color: var(--runtime-shadow-pink);
+}
+
+.leaderboard-podium-stats {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  opacity: 0.8;
+}
+
+.leaderboard-podium-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.45rem;
+}
+
+.leaderboard-table-card {
+  overflow: hidden;
+}
+
+.leaderboard-table-header,
+.leaderboard-row {
+  display: grid;
+  grid-template-columns: 90px minmax(200px, 1.8fr) repeat(5, minmax(90px, 1fr));
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem 1.25rem;
+}
+
+.leaderboard-table-header {
+  border-bottom: 1px solid rgba(255, 138, 241, 0.25);
+  color: var(--runtime-shadow-pink);
+}
+
+.leaderboard-row {
+  border-bottom: 1px solid rgba(255, 138, 241, 0.16);
+}
+
+.leaderboard-row:last-child {
+  border-bottom: 0;
+}
+
+.leaderboard-row-athlete {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.leaderboard-row-rank {
+  color: var(--runtime-shadow-pink);
+}
+
+.leaderboard-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  z-index: 1500;
+}
+
+.leaderboard-modal {
+  width: min(560px, 100%);
+  padding: 1.75rem;
+  position: relative;
+  box-shadow: 8px 8px 0 rgba(255, 0, 76, 0.2);
+}
+
+.leaderboard-modal-close {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  background: transparent;
+  color: inherit;
+  font-size: 1rem;
+}
+
+.leaderboard-modal-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: grid;
+  place-items: center;
+  background: #fc4c02;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.leaderboard-modal-title {
+  margin-bottom: 1rem;
+}
+
+.leaderboard-modal-points {
+  margin: 1.5rem 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.leaderboard-modal-points p {
+  margin: 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--runtime-shadow-pink);
+}
+
+@media (max-width: 960px) {
+  .leaderboard-hero,
+  .leaderboard-control-stack {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .leaderboard-top-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .leaderboard-table-header {
+    display: none;
+  }
+
+  .leaderboard-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .leaderboard-filter-group,
+  .leaderboard-period-group {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .leaderboard-filter {
+    flex: 1 1 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .leaderboard-page {
+    width: calc(100% - 1rem);
+  }
+
+  .leaderboard-title {
+    font-size: 2.5rem;
+  }
+
+  .leaderboard-row {
+    grid-template-columns: 1fr;
+    gap: 0.45rem;
+  }
+
+  .leaderboard-signup-button,
+  .leaderboard-connect-button {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .leaderboard-banner,
+  .leaderboard-empty-state,
+  .leaderboard-table-card,
+  .leaderboard-podium-card,
+  .leaderboard-modal,
+  .leaderboard-filter-group {
+    background: rgba(0, 0, 0, 0.05);
+  }
+}

@@ -67,11 +67,59 @@ npm run lint
 
 ```
 src/
+├── api/            # API clients and type definitions
+│   ├── stravaApi.ts     # Strava backend API client
+│   └── stravaTypes.ts   # TypeScript types for Strava data
 ├── components/     # Reusable React components
-├── pages/          # Page components (Home, About, Contact, etc.)
+├── pages/          # Page components (Home, About, Contact, Strava, etc.)
+│   └── Strava/          # Strava stats page
+│       ├── StravaStats.tsx
+│       └── StravaStats.css
 ├── App.tsx         # Main app component
 └── main.tsx        # Application entry point
 ```
+
+## Strava Integration
+
+The website includes integration with the Strava backend API to display athletic statistics for club members.
+
+### Setup
+
+1. Copy the environment template:
+   ```bash
+   cp .env.example .env.local
+   ```
+
+2. The `.env.local` file is already configured for production:
+   ```env
+   VITE_API_BASE_URL=https://api.vuhnger.dev
+   ```
+
+### Features
+
+- OAuth authentication with Strava
+- Year-to-date statistics (runs and rides)
+- Recent activities list
+- Monthly aggregated statistics
+- Responsive design matching Runtime aesthetic
+
+### Usage
+
+1. Navigate to the Strava page by clicking "STRAVA" in the navigation
+2. Click "CONNECT STRAVA" to authorize
+3. After authorization, stats are displayed automatically
+4. Use the "REFRESH" button to reload data
+
+### API Endpoints
+
+The integration uses the following backend endpoints:
+- `GET /strava/authorize` - Start OAuth flow
+- `GET /strava/callback` - OAuth callback handler
+- `GET /strava/stats/ytd` - Year-to-date statistics
+- `GET /strava/stats/activities` - Recent activities
+- `GET /strava/stats/monthly` - Monthly aggregates
+
+All endpoints are hosted at `https://api.vuhnger.dev`.
 
 ## Deployment
 
